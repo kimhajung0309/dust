@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 문서의 문자 인코딩을 UTF-8로 지정합니다. -->
+    <meta charset="UTF-8">
+    <!-- 모바일 환경 최적화를 위한 뷰포트 설정입니다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 웹 페이지의 타이틀입니다. -->
+    <title>실시간 공기 신호등 - 미세먼지 현황</title>
+    <!-- 고품질 한글 웹폰트 Pretendard를 CDN으로 불러옵니다. -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- 미세먼지 통계 차트 시각화를 위한 Chart.js 라이브러리를 CDN으로 불러옵니다. -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 외부 스타일시트(style.css) 파일을 연결합니다. -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 전체 화면을 중앙 정렬하는 래퍼 컨테이너입니다. -->
+    <div class="container">
+        <!-- 헤더 및 지역 선택 드롭다운 영역입니다. -->
+        <header class="header">
+            <!-- 서비스 타이틀입니다. -->
+            <h1 class="service-title">🚦 실시간 공기 신호등</h1>
+            <!-- 시도 선택 컨트롤 바입니다. -->
+            <div class="control-box">
+                <!-- 지역 선택 레이블입니다. -->
+                <label for="sido-select" class="select-label">지역 선택</label>
+                <!-- 18개 시도 선택 드롭다운입니다. -->
+                <select id="sido-select" class="sido-select">
+                    <option value="전국">전국</option>
+                    <option value="서울" selected>서울</option>
+                    <option value="부산">부산</option>
+                    <option value="대구">대구</option>
+                    <option value="인천">인천</option>
+                    <option value="광주">광주</option>
+                    <option value="대전">대전</option>
+                    <option value="울산">울산</option>
+                    <option value="세종">세종</option>
+                    <option value="경기">경기</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="제주">제주</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- 최상단 대표 상태를 보여주는 메인 신호등 대형 카드입니다. -->
+        <section id="traffic-light-card" class="traffic-light-card theme-loading">
+            <!-- 지역명 및 측정 기준 시각 표시 바입니다. -->
+            <div class="traffic-top-info">
+                <span id="region-name-display" class="region-badge">서울</span>
+                <span id="base-time-display" class="base-time">측정 시각 확인 중...</span>
+            </div>
+
+            <!-- 핵심 공기 신호등 표시부 (이모지 + 상태명 + 평균 수치) 입니다. -->
+            <div class="traffic-main-display">
+                <!-- 신호등 상태 이모지 (🔵🟢🟠🔴⚪) 입니다. -->
+                <span id="status-emoji" class="status-emoji">⏳</span>
+                <!-- 상태 텍스트 (좋음/보통/나쁨/매우나쁨) 입니다. -->
+                <h2 id="status-text" class="status-text">불러오는 중...</h2>
+                <!-- 평균 미세먼지 수치 표시입니다. -->
+                <div class="average-num-box">
+                    <span id="average-value" class="average-number">-</span>
+                    <span class="average-unit">㎍/㎥</span>
+                </div>
+            </div>
+
+            <!-- 상태에 따른 액션 가이드 한 줄 문구 (나쁨 이상 시 마스크 권고 등) 입니다. -->
+            <div id="action-guide" class="action-guide">
+                대기질 정보를 불러오고 있습니다...
+            </div>
+        </section>
+
+        <!-- 신호등 등급 기준 안내 미니 범례입니다. -->
+        <section class="traffic-legend">
+            <span class="legend-chip chip-blue">🔵 좋음 (0~30)</span>
+            <span class="legend-chip chip-green">🟢 보통 (31~80)</span>
+            <span class="legend-chip chip-orange">🟠 나쁨 (81~150)</span>
+            <span class="legend-chip chip-red">🔴 매우나쁨 (151~)</span>
+        </section>
+
+        <!-- 미세먼지 수치 상위 10개 측정소 가로 막대그래프 섹션입니다. -->
+        <section class="chart-section">
+            <!-- 차트 제목 및 설명 헤더입니다. -->
+            <div class="chart-header">
+                <h3 class="chart-title">📊 미세먼지 수치 상위 측정소 TOP 10</h3>
+                <span class="chart-desc">단위: ㎍/㎥ (높은 순 정렬)</span>
+            </div>
+            <!-- Chart.js 캔버스를 감싸는 반응형 컨테이너입니다. -->
+            <div class="chart-wrapper">
+                <canvas id="dust-top-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- 데이터 로딩 인디케이터 및 오류 알림 영역입니다. -->
+        <div id="status-message" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p id="status-message-text">실시간 대기 정보를 불러오는 중...</p>
+        </div>
+
+        <!-- 각 측정소별 은은한 카드 목록이 표시되는 그리드 영역입니다. -->
+        <main id="station-list" class="station-grid">
+            <!-- 자바스크립트로 측정소 카드가 렌더링됩니다. -->
+        </main>
+    </div>
+
+    <!-- 로직을 처리하는 app.js 스크립트를 연결합니다. -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+/* 전체 요소 스타일 리셋 및 박스 사이징 설정입니다. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Pretendard 우선, 없을 시 시스템 한글 폰트를 사용하는 바디 스타일입니다. */
+body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    background-color: #f7f9fc;
+    color: #1e293b;
+    line-height: 1.5;
+    padding: 20px 16px 40px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 반응형 폭 제어 컨테이너입니다. */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* 상단 헤더 레이아웃 스타일입니다. */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* 서비스 대제목 스타일입니다. */
+.service-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+}
+
+/* 지역 선택 드롭다운 래퍼 스타일입니다. */
+.control-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+/* 드롭다운 라벨 텍스트 스타일입니다. */
+.select-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+/* 지역 선택 셀렉트 박스 스타일입니다. */
+.sido-select {
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f172a;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+}
+
+/* 🚦 메인 공기 신호등 대형 카드 스타일입니다. */
+.traffic-light-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 상단 지역 뱃지와 기준 시각 바 스타일입니다. */
+.traffic-top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 선택 지역 강조 뱃지 스타일입니다. */
+.region-badge {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 8px;
+    letter-spacing: -0.01em;
+}
+
+/* 한국어 측정 시각 텍스트 스타일입니다. */
+.base-time {
+    font-size: 0.88rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 신호등 메인 표시 컨테이너입니다. */
+.traffic-main-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+/* 거대 신호등 이모지 스타일입니다. */
+.status-emoji {
+    font-size: 4.8rem;
+    line-height: 1;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+}
+
+/* 거대 상태명 (좋음/보통/나쁨/매우나쁨) 텍스트 스타일입니다. */
+.status-text {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+/* 평균 수치 박스 스타일입니다. */
+.average-num-box {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+/* 평균 미세먼지 큰 숫자 스타일입니다. */
+.average-number {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #334155;
+    line-height: 1;
+}
+
+/* 단위 텍스트 스타일입니다. */
+.average-unit {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+/* 한 줄 행동 가이드 문구 뱃지 스타일입니다. */
+.action-guide {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    transition: all 0.25s ease;
+}
+
+/* [신호등 테마: 로딩 중] */
+.traffic-light-card.theme-loading {
+    border-color: #e2e8f0;
+    background: #ffffff;
+}
+.theme-loading .status-text { color: #64748b; }
+.theme-loading .action-guide { background: #f1f5f9; color: #64748b; }
+
+/* [신호등 테마: 🔵 좋음 - 파랑] */
+.traffic-light-card.theme-good {
+    border-color: #93c5fd;
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+}
+.theme-good .status-text { color: #1d4ed8; }
+.theme-good .action-guide { background: #dbeafe; color: #1e40af; }
+
+/* [신호등 테마: 🟢 보통 - 초록] */
+.traffic-light-card.theme-normal {
+    border-color: #86efac;
+    background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+}
+.theme-normal .status-text { color: #15803d; }
+.theme-normal .action-guide { background: #dcfce7; color: #166534; }
+
+/* [신호등 테마: 🟠 나쁨 - 주황] */
+.traffic-light-card.theme-bad {
+    border-color: #fdba74;
+    background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
+}
+.theme-bad .status-text { color: #c2410c; }
+.theme-bad .action-guide { background: #ffedd5; color: #9a3412; }
+
+/* [신호등 테마: 🔴 매우나쁨 - 빨강] */
+.traffic-light-card.theme-very-bad {
+    border-color: #fca5a5;
+    background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%);
+}
+.theme-very-bad .status-text { color: #b91c1c; }
+.theme-very-bad .action-guide { background: #fee2e2; color: #991b1b; }
+
+/* [신호등 테마: ⚪ 알 수 없음/측정불가 - 회색] */
+.traffic-light-card.theme-unknown {
+    border-color: #cbd5e1;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+.theme-unknown .status-text { color: #64748b; }
+.theme-unknown .action-guide { background: #f1f5f9; color: #475569; }
+
+/* 신호등 등급 기준 미니 범례 스타일입니다. */
+.traffic-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+/* 개별 범례 칩 스타일입니다. */
+.legend-chip {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+/* 📊 가로 막대그래프 섹션 카드 스타일입니다. */
+.chart-section {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* 차트 상단 헤더 스타일입니다. */
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* 차트 타이틀 스타일입니다. */
+.chart-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* 차트 부가 설명 텍스트입니다. */
+.chart-desc {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* 차트 캔버스 반응형 래퍼 (높이 지정으로 가로 막대 스크롤 안정화) */
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 380px;
+}
+
+/* 로딩 상태 안내 및 스피너 영역입니다. */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 30px 0;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* 로딩 회전 스피너 스타일입니다. */
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3.5px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* 스피너 회전 애니메이션 키프레임입니다. */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 측정소 카드들을 배치하는 반응형 그리드 스타일입니다. */
+.station-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+/* 측정소 개별 카드 기본 스타일 (은은한 테두리와 배경 반영) 입니다. */
+.station-sub-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* 카드 호버 시 약간 떠오르는 효과입니다. */
+.station-sub-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* [은은한 등급별 카드 색상: 🔵 1등급 좋음] */
+.station-sub-card.card-soft-1 {
+    border-color: #bfdbfe;
+    background: linear-gradient(145deg, #f0f7ff 0%, #ffffff 100%);
+}
+.station-sub-card.card-soft-1 .badge-status {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* [은은한 등급별 카드 색상: 🟢 2등급 보통] */
+.station-sub-card.card-soft-2 {
+    border-color: #bbf7d0;
+    background: linear-gradient(145deg, #f2fcf5 0%, #ffffff 100%);
+}
+.station-sub-card.card-soft-2 .badge-status {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+/* [은은한 등급별 카드 색상: 🟠 3등급 나쁨] */
+.station-sub-card.card-soft-3 {
+    border-color: #fed7aa;
+    background: linear-gradient(145deg, #fffaf3 0%, #ffffff 100%);
+}
+.station-sub-card.card-soft-3 .badge-status {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+/* [은은한 등급별 카드 색상: 🔴 4등급 매우나쁨] */
+.station-sub-card.card-soft-4 {
+    border-color: #fecaca;
+    background: linear-gradient(145deg, #fff5f5 0%, #ffffff 100%);
+}
+.station-sub-card.card-soft-4 .badge-status {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* [은은한 등급별 카드 색상: ⚪ 알 수 없음/측정불가] */
+.station-sub-card.card-soft-unknown {
+    border-color: #e2e8f0;
+    background: #fafafa;
+}
+.station-sub-card.card-soft-unknown .badge-status {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+/* 측정소 카드의 헤더 영역입니다. */
+.sub-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+/* 측정소 이름 텍스트입니다. */
+.sub-station-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* 카드 상단 상태 뱃지입니다. */
+.badge-status {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+}
+
+/* 미세먼지 및 초미세먼지 수치 행 그룹입니다. */
+.sub-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+/* 개별 수치 라인입니다. */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.92rem;
+}
+
+/* 측정 항목 타이틀입니다. */
+.info-label {
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 측정 항목 수치 값입니다. */
+.info-val {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* 카드 최하단 한국어 측정 시각 표시입니다. */
+.sub-card-footer {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    text-align: right;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    padding-top: 8px;
+}
+
+/* 모바일 화면 반응형 최적화 (너비 540px 이하) 입니다. */
+@media (max-width: 540px) {
+    /* 모바일에서 헤더 수직 정렬입니다. */
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    /* 모바일에서 컨트롤 바 너비 100% 채움입니다. */
+    .control-box {
+        justify-content: space-between;
+    }
+    
+    /* 차트 섹션 패딩 축소입니다. */
+    .chart-section {
+        padding: 16px 12px;
+    }
+
+    /* 차트 높이 모바일 축소입니다. */
+    .chart-wrapper {
+        height: 340px;
+    }
+
+    /* 신호등 이모지 크기 조절입니다. */
+    .status-emoji {
+        font-size: 3.8rem;
+    }
+
+    /* 신호등 상태명 폰트 크기 조절입니다. */
+    .status-text {
+        font-size: 2.2rem;
+    }
+
+    /* 평균 숫자 크기 조절입니다. */
+    .average-number {
+        font-size: 2rem;
+    }
+
+    /* 액션 가이드 문구 폰트 조절입니다. */
+    .action-guide {
+        font-size: 0.95rem;
+        padding: 10px 18px;
+    }
+
+    /* 1열 그리드입니다. */
+    .station-grid {
+        grid-template-columns: 1fr;
+    }
+}
